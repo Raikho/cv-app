@@ -3,7 +3,7 @@ import {Component} from 'react';
 export default class Field extends Component {
 
     render() {
-        const {name, type} = this.props;
+        const {name, type, id, editMode, handleSubmit, handleEdit} = this.props;
         
         return (
             <div className="field">
@@ -11,7 +11,14 @@ export default class Field extends Component {
                     type={type}
                     placeholder={"Please enter " + name + "..."}
                 />
-                <button>Submit</button>
+                {(editMode) ?
+                    <button onClick={() => {handleSubmit(id)}}>
+                        Submit
+                    </button> :
+                    <button onClick={() => {handleEdit(id)}}>
+                        edit
+                    </button>
+                }
             </div>
         );
     }
