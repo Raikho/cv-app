@@ -21,7 +21,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <FieldGroup fields={fields} />
+          <FieldGroup fields={fields} groupName="General"/>
         </header>
       </div>
     );
