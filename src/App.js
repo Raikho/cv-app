@@ -1,5 +1,6 @@
 import './App.css';
 import {Component} from 'react';
+import uniqid from 'uniqid'
 import FieldGroup from './components/FieldGroup.js';
 
 export default class App extends Component {
@@ -8,9 +9,9 @@ export default class App extends Component {
 
     this.state = {
       fields: [
-        { name: "Name", type: "text" },
-        { name: "Email", type: "email" },
-        { name: "Phone Number", type: "number" },
+        { name: "Name", type: "text", id: uniqid() },
+        { name: "Email", type: "email", id: uniqid() },
+        { name: "Phone Number", type: "number", id: uniqid() },
       ]
     };
   }

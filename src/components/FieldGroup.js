@@ -12,7 +12,11 @@ export default class FieldGroup extends Component {
                     <div>{groupName}</div>
                 </div>
                 {fields.map(field =>
-                    <Field name={field.name} type={field.type}/>
+                    <Field 
+                        name={field.name} 
+                        type={field.type} 
+                        key={field.id}
+                    />
                 )}
             </div>
         );
