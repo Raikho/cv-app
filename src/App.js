@@ -1,23 +1,29 @@
 import './App.css';
 import {Component} from 'react';
+import Field from './components/Field.js'
 
 export default class App extends Component {
-  constuctor() {
+  constructor(props) {
+    super(props);
+
     this.state = {
       fields: [
         { name: "Name", type: "text" },
         { name: "Email", type: "email" },
         { name: "Phone Number", type: "number" },
       ]
-    }
-
+    };
   }
 
   render() {
+    const {fields} = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
-          
+          {fields.map(field =>
+            <Field />
+          )}
         </header>
       </div>
     );
