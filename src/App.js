@@ -1,6 +1,6 @@
 import './App.css';
 import {Component} from 'react';
-import Field from './components/Field.js'
+import FieldGroup from './components/FieldGroup.js';
 
 export default class App extends Component {
   constructor(props) {
@@ -21,15 +21,15 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          {fields.map(field =>
-            <Field name={field.name} type={field.type}/>
-          )}
+          <FieldGroup fields={fields} />
         </header>
       </div>
     );
   }
 }
 
+
+// Field, FieldGroup, ExpandableFieldGroup
 
 // let fields = [
 //   { name: "Name", type:"text" },

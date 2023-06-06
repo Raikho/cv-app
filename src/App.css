@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+/* ============================ CUSTOM ============================= */
+/* ================================================================= */
+.field-group {
+  border: 1px dotted white;
+
+  padding: 20px;
+}
+
+.field {
+  border: 1px dotted white;
+  padding: 10px;
+
+  display: flex;
+  gap: 10px;
+}
