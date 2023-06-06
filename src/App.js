@@ -22,7 +22,7 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">
           {fields.map(field =>
-            <Field />
+            <Field name={field.name} type={field.type}/>
           )}
         </header>
       </div>
