@@ -52,6 +52,7 @@
   padding: 10px;
 
   display: flex;
+  justify-content: space-between;
   gap: 10px;
 }
 
