@@ -49,7 +49,10 @@ export default class App extends Component {
             groupName="General"
           />
           {templates.map(template => 
-            <ExpandableFieldGroup template={template}/>
+            <ExpandableFieldGroup 
+              template={template}
+              key={uniqid()}
+            />
           )}
         </header>
       </div>

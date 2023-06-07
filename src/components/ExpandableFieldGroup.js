@@ -12,10 +12,13 @@ export default class ExpandableFieldGroup extends Component {
     }
 
     addTemplate = () => {
-        let fields = [...this.props.template.fields];
-        fields.forEach(field => field.id = uniqid())
+        let sectionTemplate = {
+            fields: [...this.props.template.fields],
+            id: uniqid(),
+        };
+        sectionTemplate.fields.forEach(field => field.id = uniqid())
         
-        this.setState({sections: [...this.state.sections, fields]});
+        this.setState({sections: [...this.state.sections, sectionTemplate]});
     }
 
     render() {
@@ -26,13 +29,16 @@ export default class ExpandableFieldGroup extends Component {
             <div className="expandable-field-group">
                 <div className="expandable-group-name">{template.name}</div>
                 {sections.map((section, index) =>
+                    <>
                     <FieldGroup 
-                        fields={section} 
+                        fields={section.fields} 
                         groupName={template.name + " #" + (index+1)}
+                        key={section.id}
                     />
+                    <button>Remove</button>
+                    </>
                 )}
                 <button onClick={this.addTemplate}>Add</button>
-                {(sections.length >= 0) ? <button>Remove</button> : <></>}
             </div>
         );
     }
