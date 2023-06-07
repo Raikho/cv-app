@@ -14,10 +14,10 @@ export default class App extends Component {
         { name: "Email", type: "email", id: uniqid() },
         { name: "Phone Number", type: "number", id: uniqid() },
       ],
-      fieldGroupTemplates: [
+      templates: [
         {
           name: "Educational Experience",
-          fieldsTemplate: [
+          fields: [
             { name: "School Name", type:"text" },
             { name: "Title of Study", type:"text" },
             { name: "Start Date", type:"date" },
@@ -26,7 +26,7 @@ export default class App extends Component {
         },
         {
           name: "Work Experience",
-          fieldsTemplate: [
+          fields: [
             { name: "Company Name", type:"text" },
             { name: "Position Title", type:"text" },
             { name: "Main Tasks", type:"text" },
@@ -39,7 +39,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {fields, fieldGroupTemplates} = this.state;
+    const {fields, templates} = this.state;
 
     return (
       <div className="App">
@@ -48,7 +48,7 @@ export default class App extends Component {
             fields={fields} 
             groupName="General"
           />
-          {fieldGroupTemplates.map(template => 
+          {templates.map(template => 
             <ExpandableFieldGroup template={template}/>
           )}
         </header>

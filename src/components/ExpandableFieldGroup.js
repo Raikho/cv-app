@@ -7,18 +7,15 @@ export default class ExpandableFieldGroup extends Component {
         super(props);
 
         this.state = {
-            sections: [
-                [
-                    { name: "Name", type: "text", id: uniqid() },
-                    { name: "Email", type: "email", id: uniqid() },
-                    { name: "Phone Number", type: "number", id: uniqid() },
-                ],
-            ],
+            sections: [],
         }
     }
 
-    addTempalte() {
-
+    addTemplate = () => {
+        let fields = [...this.props.template.fields];
+        fields.forEach(field => field.id = uniqid())
+        
+        this.setState({sections: [...this.state.sections, fields]});
     }
 
     render() {
