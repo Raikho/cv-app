@@ -21,6 +21,12 @@ export default class ExpandableFieldGroup extends Component {
         this.setState({sections: [...this.state.sections, sectionTemplate]});
     }
 
+    removeTemplate = (id) => {
+        this.setState({sections: this.state.sections.filter(
+            section => (id !== section.id)
+        )});
+    }
+
     render() {
         const {sections} = this.state;
         const {template} = this.props;
@@ -32,10 +38,12 @@ export default class ExpandableFieldGroup extends Component {
                     <>
                     <FieldGroup 
                         fields={section.fields} 
-                        groupName={template.name + " #" + (index+1)}
+                        groupName={"#" + (index+1)}
                         key={section.id}
                     />
-                    <button>Remove</button>
+                    <button onClick={() => this.removeTemplate(section.id)}>
+                        Remove
+                    </button>
                     </>
                 )}
                 <button onClick={this.addTemplate}>Add</button>
