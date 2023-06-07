@@ -39,16 +39,29 @@
 
 /* ============================ CUSTOM ============================= */
 /* ================================================================= */
+.App-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.expandable-field-group {
+  /* border: 1px dotted yellow; */
+  background-color: rgba(255, 0, 0, 0.123);
+  padding: 10px;
+}
+
 .field-group {
-  border: 1px dotted yellow;
+  /* border: 1px dotted yellow; */
+  background-color: #ffff0022;
 
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px;
 }
 
 .field {
-  border: 1px dotted lightgreen;
+  background-color: #90ee9044;
   padding: 10px;
 
   display: flex;

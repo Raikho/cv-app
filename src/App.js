@@ -17,7 +17,6 @@ export default class App extends Component {
       fieldGroupTemplates: [
         {
           name: "Educational Experience",
-          sections: [],
           fieldsTemplate: [
             { name: "School Name", type:"text" },
             { name: "Title of Study", type:"text" },
@@ -27,7 +26,6 @@ export default class App extends Component {
         },
         {
           name: "Work Experience",
-          sections: [],
           fieldsTemplate: [
             { name: "Company Name", type:"text" },
             { name: "Position Title", type:"text" },
@@ -41,7 +39,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {fields} = this.state;
+    const {fields, fieldGroupTemplates} = this.state;
 
     return (
       <div className="App">
@@ -50,8 +48,9 @@ export default class App extends Component {
             fields={fields} 
             groupName="General"
           />
-          <ExpandableFieldGroup />
-          <ExpandableFieldGroup />
+          {fieldGroupTemplates.map(template => 
+            <ExpandableFieldGroup template={template}/>
+          )}
         </header>
       </div>
     );
