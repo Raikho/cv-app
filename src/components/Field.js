@@ -1,25 +1,39 @@
 import {Component} from 'react';
 
 export default class Field extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {editMode: true};
+    }
+
+    toggleEditMode = () => {
+        this.setState({editMode: (!this.state.editMode)});
+    }
 
     render() {
-        const {name, type, id, editMode, handleSubmit, handleEdit} = this.props;
+        const { editMode } = this.state;
+        const { name, type } = this.props;
         
-        return (
-            <div className="field">
-                <input
-                    type={type}
-                    placeholder={"Please enter " + name + "..."}
-                />
-                {(editMode) ?
-                    <button onClick={() => {handleSubmit(id)}}>
-                        Submit
-                    </button> :
-                    <button onClick={() => {handleEdit(id)}}>
-                        edit
-                    </button>
-                }
-            </div>
-        );
+        if (editMode)
+            return (
+                <div className="field">
+                    <input 
+                        type={type}
+                        placeholder={"Please enter " + name + "..."}
+                    />
+                    <button onClick={this.toggleEditMode}>Submit</button>
+                </div>
+            )
+        else
+            return (
+                <div className="field">
+                    <input 
+                        type={type}
+                        placeholder={"... <" + {name} + "> ..."}
+                    />
+                    <button onClick={this.toggleEditMode}>Edit</button>
+                </div>
+            );
     }
 }

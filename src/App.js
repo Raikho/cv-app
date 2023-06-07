@@ -9,32 +9,11 @@ export default class App extends Component {
 
     this.state = {
       fields: [
-        { name: "Name", type: "text", id: uniqid(), value: '', editMode: true},
-        { name: "Email", type: "email", id: uniqid(), value: '', editMode: true},
-        { name: "Phone Number", type: "number", id: uniqid(), value: '', editMode: false },
+        { name: "Name", type: "text", id: uniqid() },
+        { name: "Email", type: "email", id: uniqid() },
+        { name: "Phone Number", type: "number", id: uniqid() },
       ]
     };
-  }
-
-  handleSubmit = (id) => {
-    this.setState({
-      fields: this.state.fields.map(field => {
-        if (field.id === id) {
-          field.editMode = false;
-        }
-        return field;
-      })
-    })
-  }
-  handleEdit = (id) => {
-    this.setState({
-      fields: this.state.fields.map(field => {
-        if (field.id === id) {
-          field.editMode = true;
-        }
-        return field;
-      })
-    })
   }
 
   render() {
@@ -46,8 +25,6 @@ export default class App extends Component {
           <FieldGroup 
             fields={fields} 
             groupName="General"
-            handleSubmit={this.handleSubmit}
-            handleEdit={this.handleEdit}
           />
         </header>
       </div>

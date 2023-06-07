@@ -4,7 +4,7 @@ import Field from './Field.js'
 export default class FieldGroup extends Component {
 
     render() {
-        const {fields, groupName, handleSubmit, handleEdit} = this.props;
+        const { fields, groupName } = this.props;
         
         return (
             <div className="field-group">
@@ -16,10 +16,6 @@ export default class FieldGroup extends Component {
                         name={field.name} 
                         type={field.type} 
                         key={field.id}
-                        id={field.id}
-                        editMode={field.editMode}
-                        handleSubmit={handleSubmit}
-                        handleEdit={handleEdit}
                     />
                 )}
             </div>
