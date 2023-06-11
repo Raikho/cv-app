@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {Component, useMemo} from 'react';
 import uniqid from 'uniqid'
 import FieldGroup from './FieldGroup.js'
 
@@ -13,11 +13,21 @@ export default class ExpandableFieldGroup extends Component {
 
     addTemplate = () => {
         let sectionTemplate = {
-            fields: [...this.props.template.fields],
             id: uniqid(),
+            jsx: null,
         };
-        sectionTemplate.fields.forEach(field => field.id = uniqid())
-        
+        let fields = [...this.props.template.fields];
+        fields.forEach(field => field.id = uniqid())
+
+        sectionTemplate.jsx = (
+            <FieldGroup
+                fields={fields}
+                groupName={'# ' + (this.state.sections.length + 1)}
+                key={sectionTemplate.id}
+            />
+        );
+
+
         this.setState({sections: [...this.state.sections, sectionTemplate]});
     }
 
@@ -27,11 +37,6 @@ export default class ExpandableFieldGroup extends Component {
         )});
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log('after updating: ',
-            this.state.sections.map(section => section.id));
-    }
-
     render() {
         const {sections} = this.state;
         const {template} = this.props;
@@ -39,16 +44,15 @@ export default class ExpandableFieldGroup extends Component {
         return (
             <div className="expandable-field-group">
                 <div className="expandable-group-name">{template.name}</div>
-                {sections.map((section, index) =>
+                {sections.map((section, index) => 
                     <>
-                    <FieldGroup 
-                        fields={section.fields} 
-                        groupName={"#" + (index+1)}
-                        key={section.id}
-                    />
-                    <button onClick={() => this.removeTemplate(section.id)}>
-                        Remove
-                    </button>
+                        {section.jsx}
+                        {(index === sections.length - 1) ?
+                            <button
+                                onClick={() => this.removeTemplate(section.id)}
+                            >remove</button> 
+                            : ''
+                        }
                     </>
                 )}
                 <button onClick={this.addTemplate}>Add</button>
