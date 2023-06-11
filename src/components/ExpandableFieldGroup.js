@@ -27,6 +27,11 @@ export default class ExpandableFieldGroup extends Component {
         )});
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        console.log('after updating: ',
+            this.state.sections.map(section => section.id));
+    }
+
     render() {
         const {sections} = this.state;
         const {template} = this.props;
