@@ -10,9 +10,9 @@ export default class App extends Component {
 
     this.state = {
       fields: [
-        { name: "Name", type: "text", id: uniqid() },
-        { name: "Email", type: "email", id: uniqid() },
-        { name: "Phone Number", type: "number", id: uniqid() },
+        { name: "Name", type: "text", id: uniqid(), editMode: true, value: '' },
+        { name: "Email", type: "email", id: uniqid(), editMode: true, value: '' },
+        { name: "Phone Number", type: "number", id: uniqid(), editMode: true, value: '' },
       ],
       templates: [
         {
@@ -36,6 +36,14 @@ export default class App extends Component {
         },
       ],
     };
+  }
+
+  handleChangevalue = () => {
+    
+  }
+
+  handleChangeMode = () => {
+
   }
 
   render() {

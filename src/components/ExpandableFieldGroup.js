@@ -1,4 +1,4 @@
-import React, {Component, useMemo} from 'react';
+import {Component} from 'react';
 import uniqid from 'uniqid'
 import FieldGroup from './FieldGroup.js'
 

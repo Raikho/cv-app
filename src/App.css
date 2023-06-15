@@ -39,11 +39,30 @@
 
 /* ============================ CUSTOM ============================= */
 /* ================================================================= */
+:root {
+  --page-bg: #e5e7eb;
+  --accent: #3882F6;
+  --fg: #f9faf8;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  background-color: var(--page-bg);
+}
+
 .App-header {
+  height: 100vh;
+  width: max(600px, 80vw);
+  
+  box-shadow: 4px 4px 4px #0003;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
+
 .expandable-field-group {
   /* border: 1px dotted yellow; */
   background-color: rgba(255, 0, 0, 0.123);
