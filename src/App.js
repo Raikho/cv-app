@@ -54,7 +54,7 @@ export default class App extends Component {
         <header className="App-header">
           <FieldGroup 
             fields={fields} 
-            groupName="General"
+            groupName="General Information"
           />
           {templates.map(template => 
             <ExpandableFieldGroup 
