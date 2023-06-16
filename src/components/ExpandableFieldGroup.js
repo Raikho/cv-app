@@ -22,7 +22,8 @@ export default class ExpandableFieldGroup extends Component {
         sectionTemplate.jsx = (
             <FieldGroup
                 fields={fields}
-                groupName={'# ' + (this.state.sections.length + 1)}
+                // groupName={'# ' + (this.state.sections.length + 1)}
+                groupName=''
                 key={sectionTemplate.id}
             />
         );
