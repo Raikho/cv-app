@@ -4,7 +4,23 @@ import uniqid from 'uniqid'
 import FieldGroup from './components/FieldGroup.js';
 import ExpandableFieldGroup from './components/ExpandableFieldGroup.js';
 
-export default class App extends Component {
+import Field from './components/Field.js';
+
+const App = props => {
+  return (
+    <div className="App">
+      <div className="App-header">
+        <Field 
+          placeholder={'enter value'}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+export class App2 extends Component {
   constructor(props) {
     super(props);
 
