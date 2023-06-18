@@ -9,21 +9,48 @@ import Field from './components/Field.js';
 
 const App = props => {
 
-  let fields = [
+  const fields = [ // debug
     {placeholder: 'first', type: 'text', id: uniqid()},
     {placeholder: 'second', type: 'text', id: uniqid()},
     {placeholder: 'third', type: 'text', id: uniqid()}
   ]
 
+  const templates =  [
+    {
+      name: 'Educational Experience',
+      fields: [
+          {placeholder: "Enter School Name", type: 'text'},
+          {placeholder: "Enter Title of Study", type: 'text'},
+          {placeholder: "Enter Start Date", type: 'text'},
+          {placeholder: "Enter End Date", type: 'text'},
+      ]
+    },
+    {
+      name: "Work Experience",
+      fields: [
+        { placeholder: "Enter Company Name", type:"text" },
+        { placeholder: "Enter Position Title", type:"text" },
+        { placeholder: "Enter Main Tasks", type:"text" },
+        { placeholder: "Enter Start Date", type:"date" },
+        { placeholder: "Enter End Date", type:"date" },
+      ],
+    },
+  ]
+
   return (
     <div className="App">
       <div className="App-header">
-        <Field 
+        <Field // debug
           placeholder={'enter value'}
         />
-        <FieldGroup 
+        <FieldGroup // debug
           fields={fields}
         />
+        {templates.map((template, index) =>
+          <ExpandableFieldGroup
+            template={template}
+          />
+        )}
       </div>
     </div>
   );
