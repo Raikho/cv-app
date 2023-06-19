@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import Field from './Field.js'
 
 
@@ -9,9 +8,11 @@ const FieldGroup = props => {
         <div className="field-group">
             {fields.map(field => 
                 <Field 
+                    key={field.id}
                     placeholder={field.placeholder}
                     type={field.type}
-                    key={field.id}
+                    value={field.value}
+                    editMode={field.editMode}
                 />
             )}
         </div>

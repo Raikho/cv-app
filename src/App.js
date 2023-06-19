@@ -9,46 +9,74 @@ import Field from './components/Field.js';
 
 const App = props => {
 
-  const fields = [ // debug
-    {placeholder: 'first', type: 'text', id: uniqid()},
-    {placeholder: 'second', type: 'text', id: uniqid()},
-    {placeholder: 'third', type: 'text', id: uniqid()}
-  ]
-
-  const templates =  [
+  const templates = [
     {
-      name: 'Educational Experience',
-      fields: [
-          {placeholder: "Enter School Name", type: 'text'},
-          {placeholder: "Enter Title of Study", type: 'text'},
-          {placeholder: "Enter Start Date", type: 'text'},
-          {placeholder: "Enter End Date", type: 'text'},
-      ]
-    },
-    {
-      name: "Work Experience",
-      fields: [
-        { placeholder: "Enter Company Name", type:"text" },
-        { placeholder: "Enter Position Title", type:"text" },
-        { placeholder: "Enter Main Tasks", type:"text" },
-        { placeholder: "Enter Start Date", type:"date" },
-        { placeholder: "Enter End Date", type:"date" },
+      title: 'General Information',
+      id: uniqid(),
+      isDynamic: false,
+      fieldsTemplate: [
+        {placeholder: 'Enter name', type: 'text'},
+        {placeholder: 'Enter email', type: 'email'},
+        {placeholder: 'Enter phone number', type: 'number'},
       ],
+      sections: [],
     },
-  ]
+    // {
+    //   title: 'Educational Experience',
+    //   id: uniqid(),
+    //   isDynamic: true,
+    //   fieldsTemplate: [
+    //     {placeholder: 'Enter school name', type: 'text'},
+    //     {placeholder: 'Enter title of study', type: 'text'},
+    //     {placeholder: 'Enter start date', type: 'text'},
+    //     {placeholder: 'Enter end date', type: 'text'},
+    //   ],
+    //   sections: [],
+    // },
+    // {
+    //   title: 'Work Experience',
+    //   id: uniqid(),
+    //   isDynamic: true,
+    //   fieldsTemplate: [
+    //     {placeholder: 'Enter company name', type: 'text'},
+    //     {placeholder: 'Enter position title', type: 'text'},
+    //     {placeholder: 'Enter main tasks', type: 'text'},
+    //     {placeholder: 'Enter start date', type: 'text'},
+    //     {placeholder: 'Enter end date', type: 'text'},
+    //   ],
+    //   sections: [],
+    // },
+  ];
+
+  const addSection = (id) => {
+    let template = templates.filter(template => template.id === id)[0];
+    let sections = template.sections;
+    let fields = [...template.fieldsTemplate];
+
+    fields.forEach(field => {
+      field.value = '';
+      field.editMode = false;
+      field.id = uniqid();
+    })
+
+    sections.push({id: uniqid(), fields: fields});
+
+    console.log('added a section:', sections); // debug
+  }
+
+  // addSection(templates[0].id); // debug
+  console.log('section0:', templates[0].sections[0]); // debug
 
   return (
     <div className="App">
       <div className="App-header">
-        <Field // debug
-          placeholder={'enter value'}
-        />
-        <FieldGroup // debug
-          fields={fields}
-        />
-        {templates.map((template, index) =>
+        {templates.map(template =>
           <ExpandableFieldGroup
-            template={template}
+            key={template.id}
+            title={template.title}
+            isDynamic={template.isDynamic}
+            sections={template.sections}
+            addSection={() => {addSection(template.id)}}
           />
         )}
       </div>
@@ -58,6 +86,7 @@ const App = props => {
 
 
 export default App;
+
 
 // export class App2 extends Component {
 //   constructor(props) {

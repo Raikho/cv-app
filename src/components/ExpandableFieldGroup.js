@@ -1,42 +1,54 @@
 import uniqid from 'uniqid';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import FieldGroup from './FieldGroup.js'
+import Field from './Field.js';
 
 
 const ExpandableFieldGroup = props => {
-    const {template} = props;
-    const [sections, setSections] = useState(Array(10).fill(null));
+    const { title, isDynamic, sections, addSection } = props;
 
-    // useEffect(() => {
-    //     let newSections = [...sections];
-    //     newSections[1] = template;
-    //     setSections(newSections);
-    // }, []);
-
-    const addSection = () => {
-        let newSections = [...sections];
-        newSections[1] = template;
-        setSections(newSections);
+    if (!isDynamic) {
+        console.log('is not dynamic')
+        addSection();
     }
 
     return (
         <div className="expandable-field-group">
-            <div className="expandable-group-name">{template.name}</div>
-            {
-                sections.map(section => {
-                    if (!section) 
-                        return null;
-                    return (
-                        <>
-                            <FieldGroup
-                                fields={section.fields}
+            <div className="expandable-group-name">{title}</div>
+            {sections.map(section => 
+                <FieldGroup
+                    key={section.id}
+                    fields={section.fields}
+                />
+            )}
+             {/* {
+                areShown.map((isShown, index) => {
+                    if (isShown) {
+                        return (<>
+                            <FieldGroup 
+                                fields={sections[index].fields}
+                                key={sections[index].id}
                             />
-                            <button>remove</button>
-                        </>
-                    );
+                        </>);
+                    }
+                    return <div>empty</div>;
                 })
-            }
-            <button onClick={addSection}>add</button>
+                
+                // sections.map(section => {
+                //     if (!section.show) 
+                //         return null;
+                //     return (
+                //         <>
+                //             <FieldGroup
+                //                 fields={section.fields}
+                //                 key={section.id}
+                //             />
+                //             <button>remove</button>
+                //         </>
+                //     );
+                // })
+            } */}
+            <button>add</button>
         </div>
     );
 }
