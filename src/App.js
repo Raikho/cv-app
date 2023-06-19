@@ -1,5 +1,5 @@
 import './App.css';
-import {Component} from 'react';
+import {Component, useState, useEffect} from 'react';
 import uniqid from 'uniqid'
 import FieldGroup from './components/FieldGroup.js';
 import ExpandableFieldGroup from './components/ExpandableFieldGroup.js';
@@ -9,7 +9,7 @@ import Field from './components/Field.js';
 
 const App = props => {
 
-  const templates = [
+  let [templates, setTemplates] = useState([
     {
       title: 'General Information',
       id: uniqid(),
@@ -21,51 +21,54 @@ const App = props => {
       ],
       sections: [],
     },
-    // {
-    //   title: 'Educational Experience',
-    //   id: uniqid(),
-    //   isDynamic: true,
-    //   fieldsTemplate: [
-    //     {placeholder: 'Enter school name', type: 'text'},
-    //     {placeholder: 'Enter title of study', type: 'text'},
-    //     {placeholder: 'Enter start date', type: 'text'},
-    //     {placeholder: 'Enter end date', type: 'text'},
-    //   ],
-    //   sections: [],
-    // },
-    // {
-    //   title: 'Work Experience',
-    //   id: uniqid(),
-    //   isDynamic: true,
-    //   fieldsTemplate: [
-    //     {placeholder: 'Enter company name', type: 'text'},
-    //     {placeholder: 'Enter position title', type: 'text'},
-    //     {placeholder: 'Enter main tasks', type: 'text'},
-    //     {placeholder: 'Enter start date', type: 'text'},
-    //     {placeholder: 'Enter end date', type: 'text'},
-    //   ],
-    //   sections: [],
-    // },
-  ];
+    {
+      title: 'Educational Experience',
+      id: uniqid(),
+      isDynamic: true,
+      fieldsTemplate: [
+        {placeholder: 'Enter school name', type: 'text'},
+        {placeholder: 'Enter title of study', type: 'text'},
+        {placeholder: 'Enter start date', type: 'text'},
+        {placeholder: 'Enter end date', type: 'text'},
+      ],
+      sections: [],
+    },
+    {
+      title: 'Work Experience',
+      id: uniqid(),
+      isDynamic: true,
+      fieldsTemplate: [
+        {placeholder: 'Enter company name', type: 'text'},
+        {placeholder: 'Enter position title', type: 'text'},
+        {placeholder: 'Enter main tasks', type: 'text'},
+        {placeholder: 'Enter start date', type: 'text'},
+        {placeholder: 'Enter end date', type: 'text'},
+      ],
+      sections: [],
+    },
+  ]);
 
-  const addSection = (id) => {
-    let template = templates.filter(template => template.id === id)[0];
+  const addSection = id => {
+    let templatesCopy = JSON.parse(JSON.stringify(templates));
+    
+    let template = templatesCopy.filter(template => template.id === id)[0];
     let sections = template.sections;
     let fields = [...template.fieldsTemplate];
-
     fields.forEach(field => {
       field.value = '';
-      field.editMode = false;
+      field.editMode = true;
       field.id = uniqid();
     })
-
     sections.push({id: uniqid(), fields: fields});
 
-    console.log('added a section:', sections); // debug
+    setTemplates(templatesCopy)
   }
 
-  // addSection(templates[0].id); // debug
-  console.log('section0:', templates[0].sections[0]); // debug
+  // useEffect(() => console.log('updated templates: ', templates), [templates]);
+
+  const onSubmit = id => {
+    console.log('submitting for id: ', id)
+  }
 
   return (
     <div className="App">
@@ -77,6 +80,7 @@ const App = props => {
             isDynamic={template.isDynamic}
             sections={template.sections}
             addSection={() => {addSection(template.id)}}
+            onSubmit={onSubmit}
           />
         )}
       </div>
@@ -86,6 +90,8 @@ const App = props => {
 
 
 export default App;
+
+
 
 
 // export class App2 extends Component {

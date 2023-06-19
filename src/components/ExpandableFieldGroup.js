@@ -1,24 +1,32 @@
 import uniqid from 'uniqid';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import FieldGroup from './FieldGroup.js'
 import Field from './Field.js';
 
 
 const ExpandableFieldGroup = props => {
-    const { title, isDynamic, sections, addSection } = props;
+    const { title, isDynamic, sections, addSection, onSubmit } = props;
 
-    if (!isDynamic) {
-        console.log('is not dynamic')
-        addSection();
-    }
+    useEffect(() => {
+        if (!isDynamic) {
+            console.log('is not dynamic');
+            addSection();
+        }
+    }, []);
+    // if (!isDynamic) {
+    //     console.log('is not dynamic')
+    //     addSection();
+    // }
 
     return (
         <div className="expandable-field-group">
             <div className="expandable-group-name">{title}</div>
+            {'test'}
             {sections.map(section => 
                 <FieldGroup
                     key={section.id}
                     fields={section.fields}
+                    onSubmit={onSubmit}
                 />
             )}
              {/* {

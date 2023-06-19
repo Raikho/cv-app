@@ -2,7 +2,7 @@ import Field from './Field.js'
 
 
 const FieldGroup = props => {
-    const {fields} = props;
+    const { fields, onSubmit } = props;
 
     return (
         <div className="field-group">
@@ -13,6 +13,9 @@ const FieldGroup = props => {
                     type={field.type}
                     value={field.value}
                     editMode={field.editMode}
+                    onSubmit={() => {
+                        onSubmit(field.id)
+                    }}
                 />
             )}
         </div>

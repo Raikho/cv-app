@@ -8,22 +8,49 @@ const Field = props => {
     const toggleMode = () => {setEditMode(!editMode)};
     const handleChangeValue = (e) => {setValue(e.target.value);}
 
-    return (
-        <div className="field">
-            {editMode ?
-                <input 
+    if (props.editMode) {
+        return (
+            <form
+                onSubmit={props.onSubmit}
+                className="field"
+            >
+                <input
                     placeholder={props.placeholder}
-                    onChange={handleChangeValue}
-                /> :
+                />
+                <button
+                    // onClick={() => console.log('clicked')}
+                    type="submit"
+                >submit</button>
+            </form>
+        );
+    }
+
+    if (!props.editMode) {
+        return (
+            <div className="field">
                 <div className="field-value">
-                    {value}
+                    {'value: ' + props.value}
                 </div>
-            }
-            <button
-                onClick={toggleMode}
-            >{editMode ? 'submit' : 'edit'}</button>
-        </div>
-    );
+            </div>
+        )
+    }
+
+    // return (
+    //     <div className="field">
+    //         {editMode ?
+    //             <input 
+    //                 placeholder={props.placeholder}
+    //                 onChange={handleChangeValue}
+    //             /> :
+    //             <div className="field-value">
+    //                 {value}
+    //             </div>
+    //         }
+    //         <button
+    //             onClick={toggleMode}
+    //         >{editMode ? 'submit' : 'edit'}</button>
+    //     </div>
+    // );
 }
 
 
