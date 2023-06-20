@@ -49,7 +49,7 @@ const App = props => {
   ]);
 
   const addSection = id => {
-    let templatesCopy = JSON.parse(JSON.stringify(templates));
+    let templatesCopy = [...templates];
     
     let template = templatesCopy.filter(template => template.id === id)[0];
     let sections = template.sections;
@@ -61,13 +61,21 @@ const App = props => {
     })
     sections.push({id: uniqid(), fields: fields});
 
-    setTemplates(templatesCopy)
+    setTemplates(templatesCopy);
   }
 
-  // useEffect(() => console.log('updated templates: ', templates), [templates]);
+  const handleSubmit = (value, id) => {
+    let templatesCopy = [...templates];
 
-  const onSubmit = id => {
-    console.log('submitting for id: ', id)
+    for (let template of templatesCopy)
+      for (let section of template.sections)
+        for (let field of section.fields)
+          if (field.id === id) {
+            field.value = value;
+            field.editMode = false;
+            setTemplates(templatesCopy);
+            return;
+          }
   }
 
   return (
@@ -80,7 +88,7 @@ const App = props => {
             isDynamic={template.isDynamic}
             sections={template.sections}
             addSection={() => {addSection(template.id)}}
-            onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
           />
         )}
       </div>

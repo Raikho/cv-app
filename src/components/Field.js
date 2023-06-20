@@ -2,25 +2,30 @@ import {useState} from 'react'
 
 
 const Field = props => {
-    const [editMode, setEditMode] = useState('edit');
+    // const [editMode, setEditMode] = useState('edit');
     const [value, setValue] = useState('starting value');
 
-    const toggleMode = () => {setEditMode(!editMode)};
-    const handleChangeValue = (e) => {setValue(e.target.value);}
+    const handleSubmit = event => {
+        event.preventDefault();
+        props.handleSubmit(value, props.id);
+    };
+
+    const handleChange = event => {
+        setValue(event.target.value);
+    };
 
     if (props.editMode) {
         return (
             <form
-                onSubmit={props.onSubmit}
                 className="field"
+                onSubmit={handleSubmit}
             >
                 <input
                     placeholder={props.placeholder}
+                    onChange={handleChange}
+                    type={props.type}
                 />
-                <button
-                    // onClick={() => console.log('clicked')}
-                    type="submit"
-                >submit</button>
+                <button type="submit">submit</button>
             </form>
         );
     }
