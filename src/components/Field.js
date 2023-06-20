@@ -3,15 +3,15 @@ import {useState} from 'react'
 
 const Field = props => {
     // const [editMode, setEditMode] = useState('edit');
-    const [value, setValue] = useState('starting value');
+    const [currentValue, setCurrentValue] = useState('starting value');
 
     const handleSubmit = event => {
         event.preventDefault();
-        props.handleSubmit(value, props.id);
+        props.handleSubmit(currentValue, props.id);
     };
 
     const handleChange = event => {
-        setValue(event.target.value);
+        setCurrentValue(event.target.value);
     };
 
     if (props.editMode) {
@@ -28,34 +28,16 @@ const Field = props => {
                 <button type="submit">submit</button>
             </form>
         );
-    }
-
-    if (!props.editMode) {
+    } else {
         return (
             <div className="field">
                 <div className="field-value">
-                    {'value: ' + props.value}
+                    {props.value}
                 </div>
+                <button onClick={props.handleEdit}>edit</button>
             </div>
         )
     }
-
-    // return (
-    //     <div className="field">
-    //         {editMode ?
-    //             <input 
-    //                 placeholder={props.placeholder}
-    //                 onChange={handleChangeValue}
-    //             /> :
-    //             <div className="field-value">
-    //                 {value}
-    //             </div>
-    //         }
-    //         <button
-    //             onClick={toggleMode}
-    //         >{editMode ? 'submit' : 'edit'}</button>
-    //     </div>
-    // );
 }
 
 
