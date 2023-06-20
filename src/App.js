@@ -1,12 +1,7 @@
 import './App.css';
-import {Component, useState, useEffect} from 'react';
+import { useState } from 'react';
 import uniqid from 'uniqid'
-import FieldGroup from './components/FieldGroup.js';
 import ExpandableFieldGroup from './components/ExpandableFieldGroup.js';
-
-import Field from './components/Field.js';
-
-const copy = x => JSON.parse(JSON.stringify(x));
 
 const App = props => {
 
@@ -53,12 +48,9 @@ const App = props => {
     let templatesCopy = copy(templates);
     let template = templatesCopy.filter(template => template.id === id)[0];
 
-    let newFields = copy(template.fieldsTemplate).map((field) => {
-      field.value = '';
-      field.editMode = true;
-      field.id = uniqid(template.sections.length + '-');
-      return field;
-    });
+    let newFields = copy(template.fieldsTemplate).map(field => 
+      Object.assign(field, {value: '', editMode: true, id: uniqid()})
+    );
     template.sections.push({id: uniqid(), fields: newFields});
 
     setTemplates(templatesCopy);
@@ -110,69 +102,6 @@ const App = props => {
 
 export default App;
 
-
-
-
-// export class App2 extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       fields: [
-//         { name: "Name", type: "text", id: uniqid(), editMode: true, value: '' },
-//         { name: "Email", type: "email", id: uniqid(), editMode: true, value: '' },
-//         { name: "Phone Number", type: "number", id: uniqid(), editMode: true, value: '' },
-//       ],
-//       templates: [
-//         {
-//           name: "Educational Experience",
-//           fields: [
-//             { name: "School Name", type:"text" },
-//             { name: "Title of Study", type:"text" },
-//             { name: "Start Date", type:"date" },
-//             { name: "End Date", type:"date" },
-//           ],
-//         },
-//         {
-//           name: "Work Experience",
-//           fields: [
-//             { name: "Company Name", type:"text" },
-//             { name: "Position Title", type:"text" },
-//             { name: "Main Tasks", type:"text" },
-//             { name: "Start Date", type:"date" },
-//             { name: "End Date", type:"date" },
-//           ],
-//         },
-//       ],
-//     };
-//   }
-
-//   handleChangevalue = () => {
-    
-//   }
-
-//   handleChangeMode = () => {
-
-//   }
-
-//   render() {
-//     const {fields, templates} = this.state;
-
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <FieldGroup 
-//             fields={fields} 
-//             groupName="General Information"
-//           />
-//           {templates.map(template => 
-//             <ExpandableFieldGroup 
-//               template={template}
-//               key={uniqid()}
-//             />
-//           )}
-//         </header>
-//       </div>
-//     );
-//   }
-// }
+function copy(x) {
+  return JSON.parse(JSON.stringify(x));
+}

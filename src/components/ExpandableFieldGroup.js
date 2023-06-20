@@ -1,7 +1,5 @@
-import uniqid from 'uniqid';
-import {useState, useEffect, Fragment} from 'react';
+import { useEffect, Fragment} from 'react';
 import FieldGroup from './FieldGroup.js'
-import Field from './Field.js';
 
 
 const ExpandableFieldGroup = props => {
