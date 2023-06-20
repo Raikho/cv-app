@@ -64,22 +64,13 @@ const App = props => {
     setTemplates(templatesCopy);
   }
 
-  const removeSection = id => {
-    console.log('removing section with id: ', id);
+  const removeSection = (templateId, sectionId) => {
+    let templatesCopy = copy(templates);
+    let template = templatesCopy.filter(t => t.id === templateId)[0];
 
-    let templatesCopy = [...templates];
-
-    for (let template of templatesCopy)
-      for (let section of template.sections)
-        if (section.id === id) {
-          console.log('found section', section, 'id: ', id);
-          let sectionsCopy = template.sections.filter(section => (section.id !== id))
-          // console.log('sections without that one:', sectionsCopy);
-          // template.sections = sectionsCopy;
-
-          setTemplates(templatesCopy);
-          return;
-        }
+    let newSections = copy(template.sections).filter(s => s.id !== sectionId);
+    template.sections = newSections;
+    setTemplates(templatesCopy);
   }
 
   const handleSubmit = (value, id) => {
@@ -92,7 +83,6 @@ const App = props => {
             field.value = value;
             field.editMode = false;
             setTemplates(templatesCopy);
-            console.log('updated templates on submit', templates); // debug
             return;
           }
   }
@@ -103,10 +93,11 @@ const App = props => {
         {templates.map(template =>
           <ExpandableFieldGroup
             key={template.id}
+            id={template.id}
             title={template.title}
             isDynamic={template.isDynamic}
             sections={template.sections}
-            addSection={() => {addSection(template.id)}}
+            addSection={addSection}
             removeSection={removeSection}
             handleSubmit={handleSubmit}
           />
