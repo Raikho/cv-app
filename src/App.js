@@ -6,6 +6,7 @@ import ExpandableFieldGroup from './components/ExpandableFieldGroup.js';
 
 import Field from './components/Field.js';
 
+const copy = x => JSON.parse(JSON.stringify(x));
 
 const App = props => {
 
@@ -49,19 +50,36 @@ const App = props => {
   ]);
 
   const addSection = id => {
-    let templatesCopy = [...templates];
-    
+    let templatesCopy = copy(templates);
     let template = templatesCopy.filter(template => template.id === id)[0];
-    let sections = template.sections;
-    let fields = [...template.fieldsTemplate];
-    fields.forEach(field => {
+
+    let newFields = copy(template.fieldsTemplate).map((field) => {
       field.value = '';
       field.editMode = true;
-      field.id = uniqid();
-    })
-    sections.push({id: uniqid(), fields: fields});
+      field.id = uniqid(template.sections.length + '-');
+      return field;
+    });
+    template.sections.push({id: uniqid(), fields: newFields});
 
     setTemplates(templatesCopy);
+  }
+
+  const removeSection = id => {
+    console.log('removing section with id: ', id);
+
+    let templatesCopy = [...templates];
+
+    for (let template of templatesCopy)
+      for (let section of template.sections)
+        if (section.id === id) {
+          console.log('found section', section, 'id: ', id);
+          let sectionsCopy = template.sections.filter(section => (section.id !== id))
+          // console.log('sections without that one:', sectionsCopy);
+          // template.sections = sectionsCopy;
+
+          setTemplates(templatesCopy);
+          return;
+        }
   }
 
   const handleSubmit = (value, id) => {
@@ -74,6 +92,7 @@ const App = props => {
             field.value = value;
             field.editMode = false;
             setTemplates(templatesCopy);
+            console.log('updated templates on submit', templates); // debug
             return;
           }
   }
@@ -88,6 +107,7 @@ const App = props => {
             isDynamic={template.isDynamic}
             sections={template.sections}
             addSection={() => {addSection(template.id)}}
+            removeSection={removeSection}
             handleSubmit={handleSubmit}
           />
         )}

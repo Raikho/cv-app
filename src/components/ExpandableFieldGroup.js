@@ -1,33 +1,30 @@
 import uniqid from 'uniqid';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, Fragment} from 'react';
 import FieldGroup from './FieldGroup.js'
 import Field from './Field.js';
 
 
 const ExpandableFieldGroup = props => {
-    const { title, isDynamic, sections, addSection, handleSubmit } = props;
+    const { title, isDynamic, sections, addSection, removeSection, handleSubmit } = props;
 
-    useEffect(() => {
-        if (!isDynamic) {
-            console.log('is not dynamic');
-            addSection();
-        }
-    }, []);
-
-    // if (!isDynamic) {
-    //     console.log('is not dynamic')
-    //     addSection();
-    // }
+    useEffect(() => {if (!isDynamic) addSection()}, []);
 
     return (
         <div className="expandable-field-group">
             <div className="expandable-group-name">{title}</div>
             {sections.map(section => 
-                <FieldGroup
-                    key={section.id}
-                    fields={section.fields}
-                    handleSubmit={handleSubmit}
-                />
+                <Fragment key={section.id}>
+                    <FieldGroup
+                        key={section.id}
+                        fields={section.fields}
+                        handleSubmit={handleSubmit}
+                    />
+                    {isDynamic ? 
+                        <button
+                            onClick={() => removeSection(section.id)}
+                        >delete</button> 
+                    : null}
+                </Fragment>
             )}
              {/* {
                 areShown.map((isShown, index) => {
@@ -56,7 +53,7 @@ const ExpandableFieldGroup = props => {
                 //     );
                 // })
             } */}
-            {isDynamic ? <button>add</button> : null}
+            {isDynamic ? <button onClick={addSection}>add</button> : null}
         </div>
     );
 }
